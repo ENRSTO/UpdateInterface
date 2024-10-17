@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 
 public class CommandExecutor {
 
@@ -31,26 +32,34 @@ public class CommandExecutor {
 		return  result.toString();
 	}
 	
+//	public void executeCommandPing(String command, String host, JTextArea area) {
+//		
+//		 try {
+//
+//             // Esegui il comando
+//             Process process = Runtime.getRuntime().exec(command);
+//
+//             // Leggi l'output del comando
+//             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//             String line;
+//             while ((line = reader.readLine()) != null) {
+//                 area.append(line + "\n");  // Aggiungi ogni riga di output alla JTextArea
+//                 area.setCaretPosition(area.getDocument().getLength());
+//             }
+//
+//             // Chiudi il reader
+//             reader.close();
+//         } catch (Exception ex) {
+//             area.append("Errore durante l'esecuzione del ping: " + ex.getMessage() + "\n");
+//         }
+//		 
+//	}
+	
 	public void executeCommandPing(String command, String host, JTextArea area) {
 		
-		 try {
-
-             // Esegui il comando
-             Process process = Runtime.getRuntime().exec(command);
-
-             // Leggi l'output del comando
-             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-             String line;
-             while ((line = reader.readLine()) != null) {
-                 area.append(line + "\n");  // Aggiungi ogni riga di output alla JTextArea
-             }
-
-             // Chiudi il reader
-             reader.close();
-         } catch (Exception ex) {
-             area.append("Errore durante l'esecuzione del ping: " + ex.getMessage() + "\n");
-         }
-		
+		  SwingWorker<Void, String> worker = new PingWorker(command, host, area);
+		    worker.execute();
 	}
+	
 
 }
