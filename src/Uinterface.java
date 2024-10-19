@@ -9,12 +9,14 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import service.CommandExecutor;
-import service.VersionReader;
+import service.ServiceProvider;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -44,21 +46,27 @@ public class Uinterface extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
-				try {
-					Uinterface frame = new Uinterface();
-					try {
-						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-						e.printStackTrace();
+				try { 
+					String className = getLookAndFeelClassName("Nimbus");
+					UIManager.setLookAndFeel(getLookAndFeelClassName(className)); 
+				} catch(Exception ignored){}
+				Uinterface frame = new Uinterface();
+				frame.setVisible(true);
+			} // run
+
+			private String getLookAndFeelClassName(String nameSnippet) {
+				LookAndFeelInfo[] plafs = UIManager.getInstalledLookAndFeels();
+				for (LookAndFeelInfo info : plafs) {
+					if (info.getName().contains(nameSnippet)) {
+						return info.getClassName();
 					}
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
+				return null;
 			}
 		});
-	}
+	} // main
 
 	/**
 	 * Create the frame.
@@ -74,7 +82,7 @@ public class Uinterface extends JFrame {
 		contentPane.setLayout(null);
 
 		JTextArea textArea = new JTextArea();
-		textArea.setBackground(new Color(0, 0, 0));
+		textArea.setBackground(Color.DARK_GRAY);
 		textArea.setForeground(new Color(255, 255, 255));
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -109,35 +117,54 @@ public class Uinterface extends JFrame {
 		group1.add(rdbtnNewRadioButton);
 		group1.add(rdbtnVersioniJavaInferiori);
 
+		JLabel lblPathInstallation = new JLabel("");
+		lblPathInstallation.setBounds(213, 130, 405, 17);
+		contentPane.add(lblPathInstallation);
+
 		JButton installPath = new JButton("Pacchetto Installazione");
 		installPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				int result = fileChooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedDirectory = fileChooser.getSelectedFile();
 					System.out.println("Cartella selezionata: " + selectedDirectory.getAbsolutePath());
-					// Puoi salvare questo percorso dove desideri
+					pathJava = selectedDirectory.getAbsolutePath();
+					lblPathInstallation.setText(pathJava);
 				}
 			}
 		});
 		installPath.setBounds(20, 130, 189, 21);
 		contentPane.add(installPath);
-		
+
 		JSeparator separator = new JSeparator();
-		separator.setBounds(30, 40, 200, 2);
+		separator.setBounds(20, 40, 200, 2);
 		contentPane.add(separator);
-		
-		JLabel lblNewLabel = new JLabel("         Installer");
+
+		JLabel lblNewLabel = new JLabel("  Installer");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(78, 24, 85, 13);
+		lblNewLabel.setBounds(20, 25, 85, 13);
 		contentPane.add(lblNewLabel);
+
+		JButton btnCopy = new JButton("Copia ");
+		btnCopy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				execCopy(pathInstallation, pathJava, textArea);
+			}
+		});
+		btnCopy.setBounds(709, 48, 85, 21);
+		contentPane.add(btnCopy);
+
+		JLabel lblPath21 = new JLabel("");
+		lblPath21.setBounds(213, 107, 405, 17);
+		contentPane.add(lblPath21);
 
 		// LISTENER DEI RADIO 		
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JavaPathChooser.setEnabled(false);
+				lblPath21.setText("");
 				System.out.println("Selezionata: Java 21 versione generale");
 			}
 		});
@@ -154,7 +181,7 @@ public class Uinterface extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				// Imposta il file chooser per selezionare solo directory
-				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				// Mostra la finestra di dialogo
 				int result = fileChooser.showOpenDialog(null);
 
@@ -162,10 +189,13 @@ public class Uinterface extends JFrame {
 					// Ottieni la directory selezionata
 					File selectedDirectory = fileChooser.getSelectedFile();
 					System.out.println("Cartella selezionata: " + selectedDirectory.getAbsolutePath());
-					// Puoi salvare questo percorso dove desideri
+					pathInstallation = selectedDirectory.getAbsolutePath();
+					lblPath21.setText(pathInstallation);
 				}
 			}
 		});
+
+		//ACTION LISTENER
 
 		btnPing.addActionListener(new ActionListener() {
 			@Override
@@ -189,20 +219,34 @@ public class Uinterface extends JFrame {
 
 	}
 
-	public static String GetVersion() {
-
-		VersionReader versionjava = new VersionReader(new CommandExecutor());
-		return versionjava.getJavaVersion();
-
-	}
 
 	public static void makeJarLaunch () {
 
 	}
 
+	public static String GetVersion() {
+
+		ServiceProvider versionjava = new ServiceProvider(new CommandExecutor());
+		return versionjava.getJavaVersion();
+
+	}
+
+	public static void execCopy(String DirStart, String DirEnd, JTextArea textarea) {
+		// verifico se le directory sono state dichiarate 
+		if ((DirEnd == null || DirStart == null ) || (DirEnd == null && DirEnd.isBlank()) || (DirEnd == null && DirEnd.isEmpty()) || 
+				(DirStart == null && DirStart.isBlank()) || (DirStart == null && DirStart.isEmpty()))  {
+			JOptionPane.showMessageDialog(
+					null, "Mancano le directory di partenza e Destinazione", "", JOptionPane.ERROR_MESSAGE);
+		}
+		ServiceProvider executeCopyDirectory = new ServiceProvider();
+		executeCopyDirectory.executeCopyDir(DirStart, DirEnd, textarea);
+
+	}
+
 	public void GetPing(JTextArea textArea) {
 
-		VersionReader ping = new  VersionReader(new CommandExecutor());
+		ServiceProvider ping = new  ServiceProvider(new CommandExecutor());
 		ping.getPing(textArea, "10.200.100.160");
+
 	}
 }
