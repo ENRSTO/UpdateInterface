@@ -27,6 +27,9 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import java.awt.Font;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class Uinterface extends JFrame {
 
@@ -72,9 +75,11 @@ public class Uinterface extends JFrame {
 	 * Create the frame.
 	 */
 	public  Uinterface() {
-		setTitle("Connector-Installer 1.0");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Uinterface.class.getResource("/Utils/LogoSMI.png")));
+		setResizable(false);
+		setTitle("iGCN - 1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 831, 582);
+		setBounds(100, 100, 820, 635);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -86,30 +91,30 @@ public class Uinterface extends JFrame {
 		textArea.setForeground(new Color(255, 255, 255));
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(20, 157, 774, 367);
+		scrollPane.setBounds(20, 199, 774, 368);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		contentPane.add(scrollPane);
 
 		JButton btnNewButton = new JButton("Versione");
-		btnNewButton.setBounds(709, 78, 85, 21);
+		btnNewButton.setBounds(709, 143, 85, 21);
 		contentPane.add(btnNewButton);
 
 		JButton btnPing = new JButton("Ping");
-		btnPing.setBounds(709, 103, 85, 21);
+		btnPing.setBounds(709, 168, 85, 21);
 		contentPane.add(btnPing);
 
 		JButton JavaPathChooser = new JButton("Percorso Java 21");
-		JavaPathChooser.setBounds(20, 105, 189, 21);
+		JavaPathChooser.setBounds(20, 137, 189, 21);
 		contentPane.add(JavaPathChooser);
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Java 21 versione generale");
-		rdbtnNewRadioButton.setBounds(20, 71, 189, 21);
+		rdbtnNewRadioButton.setBounds(20, 103, 189, 21);
 		//	rdbtnNewRadioButton.setActionCommand("1");
 		contentPane.add(rdbtnNewRadioButton);
 
 		JRadioButton rdbtnVersioniJavaInferiori = new JRadioButton("versioni Java inferiori alla 21");
-		rdbtnVersioniJavaInferiori.setBounds(20, 48, 219, 21);
+		rdbtnVersioniJavaInferiori.setBounds(20, 80, 219, 21);
 		//	rdbtnVersioniJavaInferiori.setActionCommand("2");
 		contentPane.add(rdbtnVersioniJavaInferiori);
 		// RADIO BUTTO GROUP 		
@@ -135,16 +140,16 @@ public class Uinterface extends JFrame {
 				}
 			}
 		});
-		installPath.setBounds(20, 130, 189, 21);
+		installPath.setBounds(20, 168, 189, 21);
 		contentPane.add(installPath);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(20, 40, 200, 2);
+		separator.setBounds(20, 72, 200, 2);
 		contentPane.add(separator);
 
 		JLabel lblNewLabel = new JLabel("  Installer");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(20, 25, 85, 13);
+		lblNewLabel.setBounds(20, 57, 85, 13);
 		contentPane.add(lblNewLabel);
 
 		JButton btnCopy = new JButton("Copia ");
@@ -153,12 +158,20 @@ public class Uinterface extends JFrame {
 				execCopy(pathInstallation, pathJava, textArea);
 			}
 		});
-		btnCopy.setBounds(709, 48, 85, 21);
+		btnCopy.setBounds(709, 113, 85, 21);
 		contentPane.add(btnCopy);
 
 		JLabel lblPath21 = new JLabel("");
 		lblPath21.setBounds(213, 107, 405, 17);
 		contentPane.add(lblPath21);
+		
+		JLabel lblNewLabel_1 = new JLabel("     Connector-Installer");
+		lblNewLabel_1.setForeground(Color.DARK_GRAY);
+		lblNewLabel_1.setBackground(SystemColor.activeCaption);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(0, 0, 816, 29);
+		lblNewLabel_1.setOpaque(true);
+		contentPane.add(lblNewLabel_1);
 
 		// LISTENER DEI RADIO 		
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
