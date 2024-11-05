@@ -104,7 +104,7 @@ public class Uinterface extends JFrame {
 		setType(Type.UTILITY);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Uinterface.class.getResource("/Utils/LogoSMI.png")));
 		setResizable(false);
-		setTitle("iGCN - 1.0");
+		setTitle("GCN - 1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 972, 677);
 		contentPane = new JPanel();
@@ -197,11 +197,11 @@ public class Uinterface extends JFrame {
 		lblPath21.setBounds(339, 122, 358, 17);
 		contentPane.add(lblPath21);
 
-		JLabel lblNewLabel_1 = new JLabel("   Connector-Installer");
+		JLabel lblNewLabel_1 = new JLabel("   Installer");
 		lblNewLabel_1.setForeground(Color.DARK_GRAY);
 		lblNewLabel_1.setBackground(SystemColor.activeCaption);
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(0, 0, 968, 29);
+		lblNewLabel_1.setBounds(0, 0, 854, 29);
 		lblNewLabel_1.setOpaque(true);
 		contentPane.add(lblNewLabel_1);
 
@@ -277,6 +277,11 @@ public class Uinterface extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(766, 78, 128, 0);
 		contentPane.add(separator_1);
+		
+		JLabel Logo = new JLabel("");
+		Logo.setIcon(new ImageIcon(Uinterface.class.getResource("/Utils/GCN.png")));
+		Logo.setBounds(856, 0, 112, 29);
+		contentPane.add(Logo);
 		
 		test.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
