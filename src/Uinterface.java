@@ -319,6 +319,13 @@ public class Uinterface extends JFrame {
 					worker.execute(); 
 					return;
 				} // if 
+				// prima installazione con java < 21 base e config.yml  
+				if (rdbtnInstaller.isSelected() && rdbtnVersioniJavaInferiori.isSelected() && !configYml.isBlank() && !pathInstallation.isBlank() && !java21path.isBlank()) {
+					JarWorkerWithParams worker = new JarWorkerWithParams(pathInstallation, textArea, configYml , configYmlPath, true, java21path, Installer);
+					worker.execute(); 
+					return;
+				} // if 
+				
 				// aggiornamento con java21 configYMl 
 				if (rdbtnUpdate.isSelected() && rdbtnJava21.isSelected() && (!configYml.isBlank() || !configYml.isBlank()) && !pathInstallation.isEmpty()) {
 					JarWorkerWithParams worker = new JarWorkerWithParams(pathInstallation, textArea, configYml, configYmlPath , false);

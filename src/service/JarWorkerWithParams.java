@@ -95,7 +95,7 @@ public class JarWorkerWithParams extends SwingWorker<Void, String> {
 		if (firstinstallation) {
 			area.append("E' una prima installazione e \n");
 		}
-		area.append("lancio questo comando per eseguire l'aggironamento: \n");
+		area.append("lancio questo comando per eseguire l'aggiornamento: \n");
 		area.append(processBuilder.command().toString());
 
 		processBuilder.redirectErrorStream(true);
