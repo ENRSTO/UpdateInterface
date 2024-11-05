@@ -56,6 +56,7 @@ public class Uinterface extends JFrame {
 	private String java21path;		
 	private static String configYml = "";
 	private static String configYmlPath = "";
+	private static File selectedYML;
 
 	//	+ "version.jar -cp ./lib/* "; 
 
@@ -212,6 +213,7 @@ public class Uinterface extends JFrame {
 				int result = fileChooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedDirectory = fileChooser.getSelectedFile();
+					selectedYML = selectedDirectory;
 					System.out.println("File selezioneto :" + selectedDirectory.getName());
 					configYml = selectedDirectory.getName();
 					configYmlPath = selectedDirectory.getParent();
@@ -261,6 +263,16 @@ public class Uinterface extends JFrame {
 		cleanBtn.setActionCommand("");
 		cleanBtn.setBounds(22, 194, 98, 26);
 		panel.add(cleanBtn);
+		
+		JButton ymlBtn = new JButton("leggi YML");
+		ymlBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ServiceProvider.readYmlFile(selectedYML);
+			}
+		});
+		ymlBtn.setActionCommand("");
+		ymlBtn.setBounds(22, 229, 98, 26);
+		panel.add(ymlBtn);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(766, 78, 128, 0);
