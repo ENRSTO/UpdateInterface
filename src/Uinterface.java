@@ -149,7 +149,7 @@ public class Uinterface extends JFrame {
 		contentPane.add(JavaPathChooser);
 
 		JRadioButton rdbtnJava21 = new JRadioButton("Java 21 versione generale");
-		rdbtnJava21.setBounds(429, 89, 189, 21);
+		rdbtnJava21.setBounds(407, 89, 189, 21);
 		//	rdbtnNewRadioButton.setActionCommand("1");
 		contentPane.add(rdbtnJava21);
 
@@ -189,7 +189,7 @@ public class Uinterface extends JFrame {
 		contentPane.add(installPath);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(162, 78, 345, 2);
+		separator.setBounds(162, 78, 260, 2);
 		contentPane.add(separator);
 
 		JLabel lblPath21 = new JLabel("");
