@@ -13,7 +13,6 @@ import service.VersionReader;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.ButtonGroup;
@@ -21,8 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.awt.Color;
 import javax.swing.JRadioButton;
-import java.awt.Component;
-import javax.swing.Box;
 import javax.swing.JSeparator;
 import java.awt.Font;
 
@@ -162,7 +159,6 @@ public class Uinterface extends JFrame {
 					// Ottieni la directory selezionata
 					File selectedDirectory = fileChooser.getSelectedFile();
 					System.out.println("Cartella selezionata: " + selectedDirectory.getAbsolutePath());
-					// Puoi salvare questo percorso dove desideri
 				}
 			}
 		});
@@ -185,18 +181,10 @@ public class Uinterface extends JFrame {
 		});
 	} // Uinterface
 
-	public static void getVersionJavaSelected (JRadioButton rdbtnNewRadioButton, JRadioButton rdbtnNewRadioButton1) {
-
-	}
-
 	public static String GetVersion() {
 
 		VersionReader versionjava = new VersionReader(new CommandExecutor());
 		return versionjava.getJavaVersion();
-
-	}
-
-	public static void makeJarLaunch () {
 
 	}
 
