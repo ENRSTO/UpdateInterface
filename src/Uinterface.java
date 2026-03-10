@@ -274,6 +274,17 @@ public class Uinterface extends JFrame {
 		ymlBtn.setBounds(22, 229, 98, 26);
 		panel.add(ymlBtn);
 		
+		JButton MacAddress = new JButton("MAC ID");
+		MacAddress.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		MacAddress.setActionCommand("");
+		MacAddress.setBounds(22, 267, 98, 26);
+		panel.add(MacAddress);
+		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(766, 78, 128, 0);
 		contentPane.add(separator_1);

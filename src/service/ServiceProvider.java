@@ -48,6 +48,11 @@ public class ServiceProvider {
 		command.executeCommandPing(comando, host, area);
 
 	} // getPing
+	
+	public void getMacAddress (JTextArea area, String host) {
+		
+		
+	}
 
 	public void executeCopyDir (String dirStart, String DirEnd, JTextArea area) {
 

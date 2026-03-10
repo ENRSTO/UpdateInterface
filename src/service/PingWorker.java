@@ -31,14 +31,14 @@ public class PingWorker extends SwingWorker<Void, String>{
         }
         reader.close();
         return null;
-	}
+	} // doInBackground
 	
 	@Override
     protected void process(List<String> chunks) {
         for (String line : chunks) {
             area.append(line + "\n");
             area.setCaretPosition(area.getDocument().getLength());
-        }
-    } 
+        } 
+    } // process
 
 }
